@@ -72,9 +72,19 @@ for page in range(1, 11):
         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
     )
     # 通过正则表达式获取class属性为title且标签体不以&开头的span标签并用捕获组提取标签内容
+
+    # <span class="title">肖申克的救赎</span>
+    # <span class="title">&nbsp;/&nbsp;The Shawshank Redemption</span>
+    # <span class="other">&nbsp;/&nbsp;月黑高飞(港)  /  刺激1995(台)</span>
+
     pattern1 = re.compile(r'<span class="title">([^&]*?)</span>')
     titles = pattern1.findall(resp.text)
+    
     # 通过正则表达式获取class属性为rating_num的span标签并用捕获组提取标签内容
+    
+    #<span class="rating_num" property="v:average">9.7</span>
+    #<span class="rating_num" property="v:average">9.6</span>
+    
     pattern2 = re.compile(r'<span class="rating_num".*?>(.*?)</span>')
     ranks = pattern2.findall(resp.text)
     # 使用zip压缩两个列表，循环遍历所有的电影标题和评分
